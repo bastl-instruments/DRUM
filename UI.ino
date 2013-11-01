@@ -28,7 +28,7 @@ void UI(){
 }
 
 
-
+#define VOLUME_COMPENSATION 100
 void playSound(unsigned char _SOUND, unsigned char _VELOCITY){
   unsigned char voice=_SOUND%3;
   currentSound[voice]=_SOUND;
@@ -37,7 +37,7 @@ void playSound(unsigned char _SOUND, unsigned char _VELOCITY){
   aSample[voice].setFreq((float)(getVar(_SOUND,RATE)+1)/16);
   aSample[voice].setTimeStretch((getVar(_SOUND,STRETCH)<<2)+1);
   aSample[voice].setEnd(map(getVar(_SOUND,CUT),0,255,16,aSample[voice].getLength()));
-  volume[voice]=(getVar(_SOUND,VOLUME)*_VELOCITY)>>7;
+  volume[voice]=(getVar(_SOUND,VOLUME)*(_VELOCITY+VOLUME_COMPENSATION))>>7;
   crush[voice]=getVar(_SOUND,CRUSH);
 
   aSample[voice].start();

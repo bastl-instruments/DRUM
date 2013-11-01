@@ -7,7 +7,7 @@ boolean sendSwitch;
 
 
 void testMode(){
- MIDI.read();
+  MIDI.read();
   counter++;
   if(counter>COUNTER_LIMIT) counter=0, flip=!flip, randomize(hw.soundFromSwitches());
   if(flip) anySound();
@@ -36,15 +36,15 @@ void testMode(){
 
 void anySound(){
 
-  randomize(1);
-  renderTweaking(page);
+  //randomize(1);
+  renderTweaking(0);
   renderTimeStretch();
- playSound(1,DEFAULT_VELOCITY);
- 
- 
+  playSound(1,DEFAULT_VELOCITY);
+
+
 }
 void stopSound(){
- 
+renderTimeStretch();
 }
 
 
@@ -54,3 +54,4 @@ int decreaseValue(int _VALUE, int _OVERFLOW){
   else _VALUE=_OVERFLOW;
   return _VALUE;
 }
+
