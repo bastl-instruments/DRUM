@@ -14,14 +14,16 @@ unsigned char currentSound[NUMBER_OF_VOICES];
 
 
 void UI(){
-  
-  hw.setColor(page+2);
-  renderSmallButtons();
-  renderCombo();
-  renderBigButtons();
-  renderKnobs();
-  renderTweaking(page);
-  renderTimeStretch();
+  if(test) testMode();
+  else{
+    hw.setColor(page+2);
+    renderSmallButtons();
+    renderCombo();
+    renderBigButtons();
+    renderKnobs();
+    renderTweaking(page);
+    renderTimeStretch();
+  }
 
 }
 
@@ -198,6 +200,7 @@ void animation(){
   hw.update();
 
 }
+
 
 
 
