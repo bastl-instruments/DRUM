@@ -27,13 +27,11 @@
 
 
 
-boolean test;
 
 
-//drum
-#define NUMBER_OF_WAVETABLES 6
-#define NUMBER_OF_VOICES 3
-#define CONTROL_RATE 64 // powers of 2 please
+
+
+
 
 
 //mem

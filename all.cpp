@@ -1,32 +1,41 @@
+//TODO:
+// Create structs for samples!
+// CHANNEL_BYTE is defined twice
+// use standard inttypes
+
+
 #include <DRUM.h>
 
+const uint8_t NUMBER_OF_VOICES = 3;
+#define NUMBER_OF_WAVETABLES 6
+#define CONTROL_RATE 64 // used my mozzi. powers of 2 please
 
 
 int main(void) {
-
   init();
   setup();
-
   while(true) {
     loop();
   }
 }
 
 
+
+
 MIDI_CREATE_INSTANCE(HardwareSerial,Serial,MIDI);
 trinityHW hw; // MOZZI or DEFAULT
 Sample<AUDIO_RATE> aSample[NUMBER_OF_VOICES];
-boolean bootShift=false;
-unsigned char currentPreset;
 
-unsigned char inputChannel;
+
 
 const char* WAVE_TABLES[]={
-  (char*)KICK2_DATA, (char*)SNARE2_DATA, (char*)HAT2_DATA,(char*)CB3_DATA,(char*)RIDE_DATA, (char*)HALUZ2048_DATA};//, };//SQUARE_NO_ALIAS512_DATA};//HAT_DATA};//WHITENOISE2048_DATA};
+  (char*)KICK2_DATA, (char*)SNARE2_DATA, (char*)HAT2_DATA,(char*)CB3_DATA,(char*)RIDE_DATA, (char*)HALUZ2048_DATA};
 
 const unsigned int WAVE_TABLES_NUM_CELLS[]={
   KICK2_NUM_CELLS, SNARE2_NUM_CELLS, HAT2_NUM_CELLS, CB3_NUM_CELLS,RIDE_NUM_CELLS,HALUZ2048_NUM_CELLS};//, CB_NUM_CELLS};
 
+
+// for randomizing ?
 const uint16_t maxValue[] PROGMEM ={
   1023,255,255, 7,255,255}; //cons
 
@@ -38,6 +47,13 @@ unsigned char crush[NUMBER_OF_VOICES];
 unsigned char currentSound[NUMBER_OF_VOICES];
 unsigned char volume[NUMBER_OF_VOICES];
 
+unsigned char currentPreset; 	// the number of the active preset. range?
+
+unsigned char inputChannel;
+
+
+boolean test;
+boolean bootShift=false;
 
 /*
 Oscil<SIN2048_NUM_CELLS, AUDIO_RATE> aOsc[NUMBER_OF_VOICES]={
@@ -74,7 +90,10 @@ void setup() {
 
   //adcReconnectAllDigitalIns();
   //yhw.initialize(DEFAULT);
-  for(int i=0;i<NUMBER_OF_VOICES;i++) aSample[i].setTable(WAVE_TABLES[i],WAVE_TABLES_NUM_CELLS[i]), aSample[i].setTimeStretch(5);
+  for(uint8_t i=0;i<NUMBER_OF_VOICES;i++) {
+	  aSample[i].setTable(WAVE_TABLES[i],WAVE_TABLES_NUM_CELLS[i]);
+	  aSample[i].setTimeStretch(5);
+  }
   hw.update();
   hw.update();
   bootShift=hw.buttonState(SMALL_BUTTON_1);
@@ -118,8 +137,7 @@ void loop() {
 
 
 
-const uint16_t clearTo[] PROGMEM ={
-  370,64,255, 0,0,200};
+
 /*
 
  osc
@@ -275,6 +293,8 @@ void loadPreset(unsigned char index) {
 
 
 void clearMemmory(){
+
+  static const uint16_t clearTo[] PROGMEM ={370,64,255, 0,0,200};
 
   for(int x=0;x<NUMBER_OF_PRESETS;x++){
     loadPreset(x);
