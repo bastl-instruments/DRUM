@@ -27,6 +27,8 @@ boolean test;
 //#include <tables/square_no_alias512_int8.h>
 //#include <python/hat.h>
 
+MIDI_CREATE_DEFAULT_INSTANCE();
+
 unsigned char inputChannel;
 const char* WAVE_TABLES[]={
   KICK2_DATA, SNARE2_DATA, HAT2_DATA,CB3_DATA,RIDE_DATA, HALUZ2048_DATA};//, };//SQUARE_NO_ALIAS512_DATA};//HAT_DATA};//WHITENOISE2048_DATA};
